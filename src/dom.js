@@ -50,11 +50,9 @@ function dragAndDrop() {
         currentPaths = [...ship1path, ...ship2path, ...ship3path, ...ship4path];
       }
 
-      console.log(currentDraggableId, currentX, currentY, tempAlign, currentPaths);
-      console.log(possible(currentDraggableId, currentX, currentY, tempAlign, currentPaths));
-
-      if (possible(currentDraggableId, currentX, currentY, tempAlign, currentPaths) === false) {
-        console.log(3);
+      if (
+        !possible(currentDraggableId, Number(currentX), Number(currentY), tempAlign, currentPaths)
+      ) {
         return;
       }
 
@@ -132,7 +130,6 @@ function dragAndDrop() {
         }
 
         if (
-          container.firstChild ||
           !possible(currentDraggableId, currentX, currentY, currentDraggableAlignment, currentPaths)
         ) {
           return;
@@ -229,20 +226,18 @@ function dragAndDrop() {
     if (align === 'r') {
       for (let i = 0; i < shipLength; i++) {
         if (paths.some((path) => path[0] === x + i && path[1] === y)) {
-          console.log(4);
           return false;
         }
       }
-      console.log(1);
+
       return shipLength + Number(x) < 11;
     } else {
       for (let i = 0; i < shipLength; i++) {
         if (paths.some((path) => path[0] === x && path[1] === y - i)) {
-          console.log(5);
           return false;
         }
       }
-      console.log(2);
+
       return Number(y) - shipLength > -2;
     }
   }
