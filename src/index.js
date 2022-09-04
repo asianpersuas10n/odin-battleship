@@ -1,4 +1,5 @@
 import css from './style.css';
+import { dragAndDrop } from './dom';
 
 function Ship(length) {
   let hull = [];
@@ -115,5 +116,7 @@ function Computer() {
   };
   return { alreadyHit, computerChoice, randPick };
 }
+
+dragAndDrop();
 
 export { Ship, GameBoard, Computer };
