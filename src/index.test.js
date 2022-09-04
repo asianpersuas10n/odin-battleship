@@ -295,3 +295,44 @@ test('computer choice shifting', () => {
   computerPlayer.randPick();
   expect(computerPlayer.computerChoice[1]).toBeFalsy();
 });
+
+test('possible on alignment change', () => {
+  function possible(shipId, x, y, align, paths) {
+    let shipLength = 0;
+    if (shipId === 'shipone') {
+      shipLength = 2;
+    } else if (shipId === 'shiptwo' || shipId === 'shipthree') {
+      shipLength = 3;
+    } else if (shipId === 'shipfour') {
+      shipLength = 4;
+    } else {
+      shipLength = 5;
+    }
+
+    if (align === 'r') {
+      for (let i = 0; i < shipLength; i++) {
+        if (paths.some((path) => path[0] === currentXYs[0] + i && path[1] === currentXYs[1])) {
+          console.log(4);
+          return false;
+        }
+      }
+      console.log(1);
+      return shipLength + Number(x) < 11;
+    } else {
+      for (let i = 0; i < shipLength; i++) {
+        if (paths.some((path) => path[0] === x && path[1] === y - i)) {
+          console.log(5);
+          return false;
+        }
+      }
+      console.log(2);
+      return Number(y) - shipLength > -2;
+    }
+  }
+  let bool = possible('shipfive', 3, 7, 'c', [
+    [3, 4],
+    [4, 4],
+    [5, 4],
+  ]);
+  expect(bool).toBe(false);
+});
