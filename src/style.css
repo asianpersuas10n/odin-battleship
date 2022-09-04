@@ -40,3 +40,58 @@ body {
 .draggable .dragging {
   opacity: .9;
 }
+
+#span1 {
+  position: relative;
+  border: 1px solid black;
+  background-color: rgba(49, 49, 49, 0.5);
+  padding-top: 10px;
+  padding-bottom: 9px;
+  padding-right: 36px;
+  top: 10px;
+  left: 30px;
+}
+
+#span2 {
+  position: relative;
+  border: 1px solid black;
+  background-color: rgba(49, 49, 49, 0.5);
+  padding-top: 10px;
+  padding-bottom: 9px;
+  padding-right: 76px;
+  top: 10px;
+  left: 30px;
+}
+
+#span3 {
+  position: relative;
+  border: 1px solid black;
+  background-color: rgba(49, 49, 49, 0.5);
+  padding-top: 10px;
+  padding-bottom: 9px;
+  padding-right: 76px;
+  top: 10px;
+  left: 30px;
+}
+
+#span4 {
+  position: relative;
+  border: 1px solid black;
+  background-color: rgba(49, 49, 49, 0.5);
+  padding-top: 10px;
+  padding-bottom: 9px;
+  padding-right: 116px;
+  top: 10px;
+  left: 30px;
+}
+
+#span5 {
+  position: relative;
+  border: 1px solid black;
+  background-color: rgba(49, 49, 49, 0.5);
+  padding-top: 10px;
+  padding-bottom: 9px;
+  padding-right: 156px;
+  top: 10px;
+  left: 30px;
+}
