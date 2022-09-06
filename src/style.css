@@ -95,3 +95,37 @@ body {
   top: 10px;
   left: 30px;
 }
+
+#playerBoard {
+  background-color: #A3CFA7;
+  width: 25rem;
+  height: 25rem;
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.playerRow {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.playercontainer {
+  border: 1px solid #FFF1DE;
+}
+
+#computerBoard {
+  background-color: #cfa3a3;
+  width: 25rem;
+  height: 25rem;
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.computerRow {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.computercontainer {
+  border: 1px solid #FFF1DE;
+}

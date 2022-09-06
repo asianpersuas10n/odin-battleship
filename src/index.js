@@ -23,7 +23,7 @@ function Ship(length) {
 }
 
 function GameBoard(shipOneLoc, shipTwoLoc, shipThreeLoc, shipFourLoc, shipFiveLoc) {
-  let game = [
+  let board = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -69,7 +69,7 @@ function GameBoard(shipOneLoc, shipTwoLoc, shipThreeLoc, shipFourLoc, shipFiveLo
 
   ships.forEach((x) => {
     x.location.forEach((y) => {
-      game[y[0]][y[1]] = 1;
+      board[y[0]][y[1]] = 1;
     });
   });
 
@@ -77,7 +77,7 @@ function GameBoard(shipOneLoc, shipTwoLoc, shipThreeLoc, shipFourLoc, shipFiveLo
     ships.forEach((x) => {
       if (x.location.find((y) => y[0] === coor[0] && y[1] === coor[1]) !== undefined) {
         bool = true;
-        game[coor[0]][coor[1]] = 'x';
+        board[coor[0]][coor[1]] = 'x';
         x.ship.hit();
         x.ship.sunk = x.ship.isSunk();
         if (x.ship.sunk) {
@@ -87,11 +87,11 @@ function GameBoard(shipOneLoc, shipTwoLoc, shipThreeLoc, shipFourLoc, shipFiveLo
       }
     });
     if (!bool) {
-      game[coor[0]][coor[1]] = 'm';
+      board[coor[0]][coor[1]] = 'm';
     }
   }
 
-  return { game, totalShips, receiveAttack };
+  return { board, totalShips, receiveAttack };
 }
 
 function Player(name) {
@@ -117,6 +117,15 @@ function Computer() {
   return { alreadyHit, computerChoice, randPick };
 }
 
+function randomBoard() {
+  let shipOne = [];
+  let shipTwo = [];
+  let shipThree = [];
+  let shipFour = [];
+  let shipFive = [];
+  return [shipOne, shipTwo, shipThree, shipFour, shipFive];
+}
+
 dragAndDrop();
 
-export { Ship, GameBoard, Computer };
+export { Ship, GameBoard, Computer, Player };

@@ -1,4 +1,7 @@
+import { Ship, GameBoard, Computer, Player } from './index.js';
+
 function dragAndDrop() {
+  const start = document.querySelector('#startBtn');
   const draggables = document.querySelectorAll('.draggable');
   const containerRows = document.querySelectorAll('.row');
   const ship1span = document.getElementById('span1');
@@ -24,6 +27,10 @@ function dragAndDrop() {
   let currentDraggableAlignment;
   let currentX;
   let currentY;
+
+  start.addEventListener('click', () => {
+    gameStart(ship1path, ship2path, ship3path, ship4path, ship5path);
+  });
 
   draggables.forEach((draggable) => {
     draggable.dataset.alignment = 'r';
@@ -241,6 +248,43 @@ function dragAndDrop() {
       return Number(y) - shipLength > -2;
     }
   }
+}
+
+function createBoards() {
+  const playerRows = document.querySelectorAll('.playerRow');
+  const computerRows = document.querySelectorAll('.computerRow');
+  const setup = document.getElementById('setUp');
+
+  setup.style.cssText = 'display: none;';
+  document.getElementById('game').style.cssText = 'dispaly: block;';
+
+  playerRows.forEach((row, gridX) => {
+    const playerContainers = row.querySelectorAll('.playercontainer');
+
+    playerContainers.forEach((container, gridY) => {
+      container.dataset.y = gridY;
+      container.dataset.x = gridX;
+    });
+  });
+
+  computerRows.forEach((row, gridX) => {
+    const computerContainers = row.querySelectorAll('.computercontainer');
+
+    computerContainers.forEach((container, gridY) => {
+      container.dataset.y = gridY;
+      container.dataset.x = gridX;
+    });
+  });
+}
+
+function gameStart(ship1, ship2, ship3, ship4, ship5) {
+  const playerNameInput = document.querySelector('#pName').textContent;
+  const turnDiv = document.querySelector('#turn');
+  let player = Player(playerNameInput);
+  let turn = true;
+  createBoards();
+
+  player.board = GameBoard(ship1, ship2, ship3, ship4, ship5);
 }
 
 function domManip() {}
