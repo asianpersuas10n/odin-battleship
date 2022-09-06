@@ -129,3 +129,11 @@ body {
 .computercontainer {
   border: 1px solid #FFF1DE;
 }
+
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: blue;
+}

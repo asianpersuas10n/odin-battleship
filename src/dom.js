@@ -1,4 +1,6 @@
-import { Ship, GameBoard, Computer, Player } from './index.js';
+import { Ship, GameBoard, Computer, Player, randomBoard, game, gameStart } from './index.js';
+
+const turnDiv = document.querySelector('#turn');
 
 function dragAndDrop() {
   const start = document.querySelector('#startBtn');
@@ -232,7 +234,7 @@ function dragAndDrop() {
 
     if (align === 'r') {
       for (let i = 0; i < shipLength; i++) {
-        if (paths.some((path) => path[0] === x + i && path[1] === y)) {
+        if (paths.find((path) => path[0] === x + i && path[1] === y)) {
           return false;
         }
       }
@@ -240,7 +242,7 @@ function dragAndDrop() {
       return shipLength + Number(x) < 11;
     } else {
       for (let i = 0; i < shipLength; i++) {
-        if (paths.some((path) => path[0] === x && path[1] === y - i)) {
+        if (paths.find((path) => path[0] === x && path[1] === y - i)) {
           return false;
         }
       }
@@ -250,10 +252,12 @@ function dragAndDrop() {
   }
 }
 
-function createBoards() {
+function createBoards(playerName) {
   const playerRows = document.querySelectorAll('.playerRow');
   const computerRows = document.querySelectorAll('.computerRow');
   const setup = document.getElementById('setUp');
+
+  turnDiv.textContent = `It's ${playerName}'s turn!`;
 
   setup.style.cssText = 'display: none;';
   document.getElementById('game').style.cssText = 'dispaly: block;';
@@ -264,6 +268,10 @@ function createBoards() {
     playerContainers.forEach((container, gridY) => {
       container.dataset.y = gridY;
       container.dataset.x = gridX;
+
+      container.addEventListener('click', (e) => {
+        game(e);
+      });
     });
   });
 
@@ -277,16 +285,52 @@ function createBoards() {
   });
 }
 
-function gameStart(ship1, ship2, ship3, ship4, ship5) {
-  const playerNameInput = document.querySelector('#pName').textContent;
-  const turnDiv = document.querySelector('#turn');
-  let player = Player(playerNameInput);
-  let turn = true;
-  createBoards();
+function domManip(player, computer) {
+  const pBoard = player.board.board;
+  const cBoard = computer.board.board;
+  turnDiv.textContent = `It's ${computer.name}'s turn!`;
+  const playerRows = document.querySelectorAll('.playerRow');
+  const computerRows = document.querySelectorAll('.computerRow');
 
-  player.board = GameBoard(ship1, ship2, ship3, ship4, ship5);
+  playerRows.forEach((row, x) => {
+    const playerContainers = row.querySelectorAll('.playercontainer');
+
+    playerContainers.forEach((container, y) => {
+      if (
+        container.className === 'playercontainer hit' ||
+        container.className === 'playercontainer miss'
+      ) {
+        if (pBoard[x][y] === 'x') {
+          container.classList.add('hit');
+        } else if (pBoard[x][y] === 'm') {
+          container.classList.add('miss');
+        }
+      }
+    });
+  });
+  setTimeout(() => {
+    computerRows.forEach((row, x) => {
+      const computerContainers = row.querySelectorAll('.computercontainer');
+
+      computerContainers.forEach((container, y) => {
+        if (
+          container.className === 'computercontainer hit' ||
+          container.className === 'computercontainer miss'
+        ) {
+          if (cBoard[x][y] === 'x') {
+            container.classList.add('hit');
+          } else if (cBoard[x][y] === 'm') {
+            container.classList.add('miss');
+          }
+        }
+      });
+    });
+    turnDiv.textContent = `It's ${player.name}'s turn!`;
+  }, 3000);
 }
 
-function domManip() {}
+function win(name) {
+  turnDiv.textContent = `${name} Has Won!!!`;
+}
 
-export { dragAndDrop };
+export { dragAndDrop, domManip, createBoards, win };
