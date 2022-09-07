@@ -269,8 +269,8 @@ function createBoards(playerName) {
       container.dataset.y = gridY;
       container.dataset.x = gridX;
 
-      container.addEventListener('click', (e) => {
-        game(e);
+      container.addEventListener('click', () => {
+        game(Number(gridX), Number(gridY));
       });
     });
   });
@@ -285,10 +285,10 @@ function createBoards(playerName) {
   });
 }
 
-function domManip(player, computer) {
-  const pBoard = player.board.board;
-  const cBoard = computer.board.board;
-  turnDiv.textContent = `It's ${computer.name}'s turn!`;
+function domManip(player, computer, name) {
+  const pBoard = player.board;
+  const cBoard = computer.board;
+  turnDiv.textContent = `It's Computers's turn!`;
   const playerRows = document.querySelectorAll('.playerRow');
   const computerRows = document.querySelectorAll('.computerRow');
 
@@ -296,10 +296,7 @@ function domManip(player, computer) {
     const playerContainers = row.querySelectorAll('.playercontainer');
 
     playerContainers.forEach((container, y) => {
-      if (
-        container.className === 'playercontainer hit' ||
-        container.className === 'playercontainer miss'
-      ) {
+      if (!container.classList.contains('hit') || !container.classList.contains('miss')) {
         if (pBoard[x][y] === 'x') {
           container.classList.add('hit');
         } else if (pBoard[x][y] === 'm') {
@@ -308,25 +305,21 @@ function domManip(player, computer) {
       }
     });
   });
-  setTimeout(() => {
-    computerRows.forEach((row, x) => {
-      const computerContainers = row.querySelectorAll('.computercontainer');
 
-      computerContainers.forEach((container, y) => {
-        if (
-          container.className === 'computercontainer hit' ||
-          container.className === 'computercontainer miss'
-        ) {
-          if (cBoard[x][y] === 'x') {
-            container.classList.add('hit');
-          } else if (cBoard[x][y] === 'm') {
-            container.classList.add('miss');
-          }
+  computerRows.forEach((row, x) => {
+    const computerContainers = row.querySelectorAll('.computercontainer');
+
+    computerContainers.forEach((container, y) => {
+      if (!container.classList.contains('hit') || !container.classList.contains('miss')) {
+        if (cBoard[x][y] === 'x') {
+          container.classList.add('hit');
+        } else if (cBoard[x][y] === 'm') {
+          container.classList.add('miss');
         }
-      });
+      }
     });
-    turnDiv.textContent = `It's ${player.name}'s turn!`;
-  }, 3000);
+  });
+  turnDiv.textContent = `It's ${name}'s turn!`;
 }
 
 function win(name) {

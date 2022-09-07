@@ -54,7 +54,7 @@ test('Game Set Up', () => {
       [9, 9],
     ]
   );
-  expect(playerOneBoard.game).toEqual([
+  expect(playerOneBoard.board).toEqual([
     [1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
     [1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -99,7 +99,7 @@ test('attack lands', () => {
     ]
   );
   playerOneBoard.receiveAttack([0, 0]);
-  expect(playerOneBoard.game).toEqual([
+  expect(playerOneBoard.board).toEqual([
     ['x', 1, 1, 1, 1, 1, 1, 1, 0, 0],
     [1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -144,7 +144,7 @@ test('attack misses', () => {
     ]
   );
   playerOneBoard.receiveAttack([0, 9]);
-  expect(playerOneBoard.game).toEqual([
+  expect(playerOneBoard.board).toEqual([
     [1, 1, 1, 1, 1, 1, 1, 1, 0, 'm'],
     [1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -205,7 +205,7 @@ test('attack hits all ', () => {
   playerOneBoard.receiveAttack([9, 7]);
   playerOneBoard.receiveAttack([9, 8]);
   playerOneBoard.receiveAttack([9, 9]);
-  expect(playerOneBoard.game).toEqual([
+  expect(playerOneBoard.board).toEqual([
     ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 0, 0],
     ['x', 'x', 'x', 'x', 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

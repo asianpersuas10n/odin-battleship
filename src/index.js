@@ -1,9 +1,11 @@
 import css from './style.css';
 import { dragAndDrop, domManip, createBoards, win } from './dom';
 
-let player;
-let computer;
-let turn;
+let playerName = '';
+let player = {};
+let computer = {};
+let turn = true;
+let computerAi;
 let pWin;
 let cWin;
 
@@ -44,8 +46,6 @@ function GameBoard(shipOneLoc, shipTwoLoc, shipThreeLoc, shipFourLoc, shipFiveLo
 
   let totalShips = [1, 1, 1, 1, 1];
 
-  let bool = false;
-
   let shipOne = {
     location: shipOneLoc,
     ship: Ship(2),
@@ -75,11 +75,16 @@ function GameBoard(shipOneLoc, shipTwoLoc, shipThreeLoc, shipFourLoc, shipFiveLo
 
   ships.forEach((x) => {
     x.location.forEach((y) => {
-      board[y[0]][y[1]] = 1;
+      board.forEach((row, i) => {
+        if (i === y[0]) {
+          row.splice(y[1], 1, 1);
+        }
+      });
     });
   });
 
   function receiveAttack(coor) {
+    let bool = false;
     ships.forEach((x) => {
       if (x.location.find((y) => y[0] === coor[0] && y[1] === coor[1]) !== undefined) {
         bool = true;
@@ -101,9 +106,6 @@ function GameBoard(shipOneLoc, shipTwoLoc, shipThreeLoc, shipFourLoc, shipFiveLo
 }
 
 function Player(name) {
-  if (name === '') {
-    name = 'Player One';
-  }
   return { name };
 }
 
@@ -134,39 +136,48 @@ function randomBoard() {
   let shipFive = randomizer(align, alreadyHere, 5);
   align = Math.round(Math.random());
   tempShip = shipFive.slice();
-  alreadyHere.concat(tempShip);
+  alreadyHere = alreadyHere.concat(tempShip);
   let shipFour = randomizer(align, alreadyHere, 4);
   align = Math.round(Math.random());
   tempShip = shipFour.slice();
-  alreadyHere.concat(tempShip);
+  alreadyHere = alreadyHere.concat(tempShip);
   let shipThree = randomizer(align, alreadyHere, 3);
   align = Math.round(Math.random());
   tempShip = shipThree.slice();
-  alreadyHere.concat(tempShip);
+  alreadyHere = alreadyHere.concat(tempShip);
   let shipTwo = randomizer(align, alreadyHere, 3);
   align = Math.round(Math.random());
   tempShip = shipTwo.slice();
-  alreadyHere.concat(tempShip);
+  alreadyHere = alreadyHere.concat(tempShip);
   let shipOne = randomizer(align, alreadyHere, 2);
+
+  console.log(shipOne, shipTwo, shipThree, shipFour, shipFive);
 
   return [shipOne, shipTwo, shipThree, shipFour, shipFive];
 }
 
 function randomizer(align, already, shipLength, start = []) {
-  let ranX = Math.floor(Math.random() * 10);
-  let ranY = Math.floor(Math.random() * 10);
+  let ranX;
+  let ranY;
   let ship = [];
   let here = already.slice();
+  if (align === 0) {
+    ranX = Math.floor(Math.random() * (10 - shipLength));
+    ranY = Math.floor(Math.random() * 10);
+  } else {
+    ranX = Math.floor(Math.random() * 10);
+    ranY = Math.floor(Math.random() * (10 - shipLength) + shipLength);
+  }
   while (
-    here.find((x) => ranX === x[0] && (ranY === x[1]) !== undefined) ||
-    (ranX === start[0] && ranY === start[1])
+    here.find((x) => ranX === x[0] && ranY === x[1]) !== undefined ||
+    start.find((y) => ranX === y[0] && ranY === y[1]) !== undefined
   ) {
     if (align === 0) {
-      ranX = Math.floor(Math.random() * 10 - shipLength);
+      ranX = Math.floor(Math.random() * (10 - shipLength));
       ranY = Math.floor(Math.random() * 10);
     } else {
       ranX = Math.floor(Math.random() * 10);
-      ranY = Math.floor(Math.random() * 10 - shipLength);
+      ranY = Math.floor(Math.random() * (10 - shipLength) + shipLength);
     }
   }
   if (align === 0) {
@@ -174,51 +185,56 @@ function randomizer(align, already, shipLength, start = []) {
       if (here.find((path) => path[0] === ranX + i && path[1] === ranY)) {
         return randomizer(align, here, shipLength, start.push([ranX, ranY]));
       }
-      ship.push(ranX + i + ranY);
+      ship.push([ranX + i, ranY]);
     }
   } else {
     for (let i = 0; i < shipLength; i++) {
       if (here.find((path) => path[0] === ranX && path[1] === ranY - i)) {
         return randomizer(align, here, shipLength, start.push([ranX, ranY]));
       }
-      ship.push(ranX + ranY - i);
+      ship.push([ranX, ranY - i]);
     }
   }
   return ship;
 }
 
 function gameStart(ship1, ship2, ship3, ship4, ship5) {
-  const playerNameInput = document.querySelector('#pName').textContent;
-  let computerBoard;
-  player = Player(playerNameInput);
-  computer = Player('Computer');
-  createBoards(playerNameInput);
+  const playerNameInput = document.querySelector('#pName').value;
+  let computerBoard = randomBoard();
 
-  computerBoard = randomBoard();
-  player.board = GameBoard(...computerBoard);
-  computer.board = GameBoard(ship1, ship2, ship3, ship4, ship5);
+  playerName = Player(playerNameInput);
+  createBoards(playerNameInput);
+  computerAi = Computer();
+  player = GameBoard(...computerBoard);
+  console.log(...computerBoard);
+  computer = GameBoard(ship1, ship2, ship3, ship4, ship5);
 }
 
-function game(container) {
-  const x = container.dataset.x;
-  const y = container.dataset.y;
-  const playerBoard = player.board.board[y][x];
+function game(x, y) {
+  const playerBoard = player.board[x][y];
   if (!turn || playerBoard === 'm' || playerBoard === 'x' || cWin || pWin) {
     return;
   }
   turn = false;
-  player.board.receiveAttack([y, x]);
-  if (!player.board.totalShips[0]) {
+  player.receiveAttack([x, y]);
+  console.log(player.board);
+  if (!player.totalShips[0]) {
     pWin = true;
-    win(player.name);
+    win(playerName.name);
   }
-  Computer.randPick();
-  computer.board.receiveAttack(Computer.computerChoice);
-  if (!computer.board.totalShips[0]) {
+
+  computerAi.randPick();
+  console.log(computerAi.computerChoice);
+
+  computer.receiveAttack([
+    Number(computerAi.computerChoice[0][0]),
+    Number(computerAi.computerChoice[0][1]),
+  ]);
+  if (!computer.totalShips[0]) {
     cWin = true;
-    win(computer.name);
+    win('Computer');
   }
-  domManip(player, computer);
+  domManip(player, computer, playerName.name);
   turn = true;
 }
 
