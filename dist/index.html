@@ -12,6 +12,20 @@
       <label for="pName">Player Name</label>
       <input type="text" id="pName">
     </div>
+    <div>
+      <button id="startBtn">Start</button>
+    </div>
+    <div id="instructions">
+      <p>Enter your name into the Player Name bar and place the ships labeled 1-5 onto the green grid.</p>
+      <p>You are able to double click the ships when on the grid and they will rotate if possible.</p>
+      <p>Understand that if the ship were to go out of bounds, over another ship, or fail to rotate the</p>
+      <p>ship willl not move from its last location.</p>
+      <p>When you are ready press Start.</p>
+      <div>
+        <p id="pNameError" style="visibility: hidden;">Player Name Must Be At Least One Character Long!</p>
+        <p id="gridError" style="visibility: hidden;">All Ships Must Be Placed On The Grid!</p>
+      </div>
+    </div>
     <div id="placementContainer">
       <div id="placementGrid">
         <div class="row">
@@ -161,254 +175,253 @@
         </span>
       </p>
     </div>
-    <div>
-      <button id="startBtn">Start</button>
-    </div>
   </div>
-  <div id="turn"></div>
-  <div id="game" style="display:none;"> 
-    <div id="playerBoard">
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
+  <div id="gameContainer">
+    <div id="turn"></div>
+    <div id="game" style="display:none;">
+      <div id="playerBoard">
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
+        <div class="playerRow">
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+          <div class="playercontainer"></div>
+        </div>
       </div>
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-      </div>
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-      </div>
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-      </div>
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-      </div>
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-      </div>
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-      </div>
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-      </div>
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-      </div>
-      <div class="playerRow">
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-        <div class="playercontainer"></div>
-      </div>
-    </div>
-    <div id="computerBoard">
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-      </div>
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-      </div>
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-      </div>
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-      </div>
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-      </div>
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-      </div>
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-      </div>
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-      </div>
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-      </div>
-      <div class="computerRow">
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
-        <div class="computercontainer"></div>
+      <div id="computerBoard">
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
+        <div class="computerRow">
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+          <div class="computercontainer"></div>
+        </div>
       </div>
     </div>
   </div>

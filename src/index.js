@@ -151,8 +151,6 @@ function randomBoard() {
   alreadyHere = alreadyHere.concat(tempShip);
   let shipOne = randomizer(align, alreadyHere, 2);
 
-  console.log(shipOne, shipTwo, shipThree, shipFour, shipFive);
-
   return [shipOne, shipTwo, shipThree, shipFour, shipFive];
 }
 
@@ -168,6 +166,7 @@ function randomizer(align, already, shipLength, start = []) {
     ranX = Math.floor(Math.random() * 10);
     ranY = Math.floor(Math.random() * (10 - shipLength) + shipLength);
   }
+
   while (
     here.find((x) => ranX === x[0] && ranY === x[1]) !== undefined ||
     start.find((y) => ranX === y[0] && ranY === y[1]) !== undefined
@@ -183,14 +182,16 @@ function randomizer(align, already, shipLength, start = []) {
   if (align === 0) {
     for (let i = 0; i < shipLength; i++) {
       if (here.find((path) => path[0] === ranX + i && path[1] === ranY)) {
-        return randomizer(align, here, shipLength, start.push([ranX, ranY]));
+        start.push([ranX, ranY]);
+        return randomizer(align, here, shipLength, start);
       }
       ship.push([ranX + i, ranY]);
     }
   } else {
     for (let i = 0; i < shipLength; i++) {
       if (here.find((path) => path[0] === ranX && path[1] === ranY - i)) {
-        return randomizer(align, here, shipLength, start.push([ranX, ranY]));
+        start.push([ranX, ranY]);
+        return randomizer(align, here, shipLength, start);
       }
       ship.push([ranX, ranY - i]);
     }
@@ -206,7 +207,6 @@ function gameStart(ship1, ship2, ship3, ship4, ship5) {
   createBoards(playerNameInput);
   computerAi = Computer();
   player = GameBoard(...computerBoard);
-  console.log(...computerBoard);
   computer = GameBoard(ship1, ship2, ship3, ship4, ship5);
 }
 
@@ -217,22 +217,23 @@ function game(x, y) {
   }
   turn = false;
   player.receiveAttack([x, y]);
-  console.log(player.board);
   if (!player.totalShips[0]) {
+    domManip(player, computer, playerName.name);
     pWin = true;
     win(playerName.name);
+    return;
   }
 
   computerAi.randPick();
-  console.log(computerAi.computerChoice);
-
   computer.receiveAttack([
     Number(computerAi.computerChoice[0][0]),
     Number(computerAi.computerChoice[0][1]),
   ]);
   if (!computer.totalShips[0]) {
+    domManip(player, computer, playerName.name);
     cWin = true;
     win('Computer');
+    return;
   }
   domManip(player, computer, playerName.name);
   turn = true;

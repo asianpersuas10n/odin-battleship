@@ -1,4 +1,4 @@
-import { Ship, GameBoard, Computer, Player, randomBoard, game, gameStart } from './index.js';
+import { game, gameStart } from './index.js';
 
 const turnDiv = document.querySelector('#turn');
 
@@ -31,6 +31,9 @@ function dragAndDrop() {
   let currentY;
 
   start.addEventListener('click', () => {
+    if (validate(ship1path, ship2path, ship3path, ship4path, ship5path)) {
+      return;
+    }
     gameStart(ship1path, ship2path, ship3path, ship4path, ship5path);
   });
 
@@ -109,10 +112,10 @@ function dragAndDrop() {
     });
   });
 
-  containerRows.forEach((row, gridY) => {
+  containerRows.forEach((row, gridX) => {
     const containers = row.querySelectorAll('.container');
 
-    containers.forEach((container, gridX) => {
+    containers.forEach((container, gridY) => {
       container.dataset.y = gridY;
       container.dataset.x = gridX;
 
@@ -148,68 +151,68 @@ function dragAndDrop() {
           if (currentDraggableId === 'shipone') {
             ship1path = [
               [currentX, currentY],
-              [currentX + 1, currentY],
+              [currentX, currentY + 1],
             ];
           } else if (currentDraggableId === 'shiptwo') {
             ship2path = [
               [currentX, currentY],
-              [currentX + 1, currentY],
-              [currentX + 2, currentY],
+              [currentX, currentY + 1],
+              [currentX, currentY + 2],
             ];
           } else if (currentDraggableId === 'shipthree') {
             ship3path = [
               [currentX, currentY],
-              [currentX + 1, currentY],
-              [currentX + 2, currentY],
+              [currentX, currentY + 1],
+              [currentX, currentY + 2],
             ];
           } else if (currentDraggableId === 'shipfour') {
             ship4path = [
               [currentX, currentY],
-              [currentX + 1, currentY],
-              [currentX + 2, currentY],
-              [currentX + 3, currentY],
+              [currentX, currentY + 1],
+              [currentX, currentY + 2],
+              [currentX, currentY + 3],
             ];
           } else {
             ship5path = [
               [currentX, currentY],
-              [currentX + 1, currentY],
-              [currentX + 2, currentY],
-              [currentX + 3, currentY],
-              [currentX + 4, currentY],
+              [currentX, currentY + 1],
+              [currentX, currentY + 2],
+              [currentX, currentY + 3],
+              [currentX, currentY + 4],
             ];
           }
         } else {
           if (currentDraggableId === 'shipone') {
             ship1path = [
               [currentX, currentY],
-              [currentX, currentY - 1],
+              [currentX - 1, currentY],
             ];
           } else if (currentDraggableId === 'shiptwo') {
             ship2path = [
               [currentX, currentY],
-              [currentX, currentY - 1],
-              [currentX, currentY - 2],
+              [currentX - 1, currentY],
+              [currentX - 2, currentY],
             ];
           } else if (currentDraggableId === 'shipthree') {
             ship3path = [
               [currentX, currentY],
-              [currentX, currentY - 1],
-              [currentX, currentY - 2],
+              [currentX - 1, currentY],
+              [currentX - 2, currentY],
             ];
           } else if (currentDraggableId === 'shipfour') {
             ship4path = [
               [currentX, currentY],
-              [currentX, currentY - 1],
-              [currentX, currentY - 2],
-              [currentX, currentY - 3],
+              [currentX - 1, currentY],
+              [currentX - 2, currentY],
+              [currentX - 3, currentY],
             ];
           } else {
             ship5path = [
               [currentX, currentY],
-              [currentX, currentY - 1],
-              [currentX, currentY - 2],
-              [currentX, currentY - 3],
-              [currentX, currentY - 4],
+              [currentX - 1, currentY],
+              [currentX - 2, currentY],
+              [currentX - 3, currentY],
+              [currentX - 4, currentY],
             ];
           }
         }
@@ -231,23 +234,22 @@ function dragAndDrop() {
     } else {
       shipLength = 5;
     }
-
     if (align === 'r') {
       for (let i = 0; i < shipLength; i++) {
-        if (paths.find((path) => path[0] === x + i && path[1] === y)) {
+        if (paths.find((path) => path[0] === x && path[1] === y + i)) {
           return false;
         }
       }
 
-      return shipLength + Number(x) < 11;
+      return shipLength + Number(y) < 11;
     } else {
       for (let i = 0; i < shipLength; i++) {
-        if (paths.find((path) => path[0] === x && path[1] === y - i)) {
+        if (paths.find((path) => path[0] === x - i && path[1] === y)) {
           return false;
         }
       }
 
-      return Number(y) - shipLength > -2;
+      return Number(x) - shipLength > -2;
     }
   }
 }
@@ -324,6 +326,26 @@ function domManip(player, computer, name) {
 
 function win(name) {
   turnDiv.textContent = `${name} Has Won!!!`;
+}
+
+function validate() {
+  const ships = ![...arguments].every((x) => x[0]);
+  const playerNameCheck = document.getElementById('pNameError');
+  const gridCheck = document.getElementById('gridError');
+
+  if (!document.getElementById('pName').value || ships) {
+    if (!document.getElementById('pName').value) {
+      playerNameCheck.style.cssText = 'visibility: visible;';
+    } else {
+      playerNameCheck.style.cssText = 'visibility: hidden;';
+    }
+    if (ships) {
+      gridCheck.style.cssText = 'visibility: visible;';
+    } else {
+      gridCheck.style.cssText = 'visibility: hidden;';
+    }
+    return true;
+  }
 }
 
 export { dragAndDrop, domManip, createBoards, win };
